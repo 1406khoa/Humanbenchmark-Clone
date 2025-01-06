@@ -1,4 +1,4 @@
-# Human Benchmark
+# Human Benchmark Clone
 
 A cognitive testing application built with React that helps users measure and improve their cognitive abilities through various interactive games and challenges.
 
