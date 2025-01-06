@@ -1,4 +1,4 @@
-import React from 'react';
+
 interface MobileKeyboardProps {
   onInput: (key: string) => void;
 }

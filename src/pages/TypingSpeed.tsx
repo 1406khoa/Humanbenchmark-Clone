@@ -8,8 +8,7 @@ import { Stats } from '../components/games/typing-speed/Stats';
 import { GameOver } from '../components/games/typing-speed/GameOver';
 import { VirtualKeyboard } from '../components/games/typing-speed/VirtualKeyboard';
 import { useDeviceType } from '../hooks/useDeviceType';
-import { MobileKeyboard } from '../components/games/typing-speed/MobileKeyboard';
-
+import { MobileKeyboard } from '../components/games/typing-speed/MobileKeyBoard';
 function TypingSpeed() {
   const {
     text,
@@ -55,7 +54,7 @@ function TypingSpeed() {
       {!isComplete && (
         <>
           <Timer timeLeft={timeLeft} totalTime={60} />
-
+          
           <Stats
             wpm={wpm}
             accuracy={accuracy}
