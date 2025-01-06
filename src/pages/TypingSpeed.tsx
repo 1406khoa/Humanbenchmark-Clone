@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Keyboard } from 'lucide-react';
 import { useTypingGame } from '../hooks/useTypingGame';
@@ -7,6 +7,8 @@ import { Timer } from '../components/games/typing-speed/Timer';
 import { Stats } from '../components/games/typing-speed/Stats';
 import { GameOver } from '../components/games/typing-speed/GameOver';
 import { VirtualKeyboard } from '../components/games/typing-speed/VirtualKeyboard';
+import { useDeviceType } from '../hooks/useDeviceType';
+import { MobileKeyboard } from '../components/games/typing-speed/MobileKeyboard';
 
 function TypingSpeed() {
   const {
@@ -22,16 +24,20 @@ function TypingSpeed() {
     restart
   } = useTypingGame();
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isComplete) {
-        handleKeyPress(e.key);
-      }
-    };
+  const { isMobile } = useDeviceType();
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [handleKeyPress, isComplete]);
+  useEffect(() => {
+    if (!isMobile) {
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (!isComplete) {
+          handleKeyPress(e.key);
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [handleKeyPress, isComplete, isMobile]);
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -49,7 +55,7 @@ function TypingSpeed() {
       {!isComplete && (
         <>
           <Timer timeLeft={timeLeft} totalTime={60} />
-          
+
           <Stats
             wpm={wpm}
             accuracy={accuracy}
@@ -57,7 +63,9 @@ function TypingSpeed() {
           />
 
           <div className="bg-white rounded-xl p-6 shadow-md text-center">
-            <p className="text-gray-600 mb-4">Start typing to begin...</p>
+            <p className="text-gray-600 mb-4">
+              {isMobile ? 'Tap below to start typing...' : 'Start typing to begin...'}
+            </p>
             <TextDisplay
               text={text}
               userInput={userInput}
@@ -65,7 +73,11 @@ function TypingSpeed() {
             />
           </div>
 
-          <VirtualKeyboard pressedKeys={pressedKeys} />
+          {isMobile ? (
+            <MobileKeyboard onInput={handleKeyPress} />
+          ) : (
+            <VirtualKeyboard pressedKeys={pressedKeys} />
+          )}
         </>
       )}
 
