@@ -1,0 +1,28 @@
+/* Cursor Animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Character Transition */
+.char {
+  transition: all 0.1s ease-in-out;
+}
+
+.char-correct {
+  color: #10B981;
+}
+
+.char-incorrect {
+  color: #EF4444;
+  background-color: #FEE2E2;
+}
+
+.char-current {
+  border-left: 2px solid #6366F1;
+  animation: blink 1s step-end infinite;
+}
