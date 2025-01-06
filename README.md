@@ -141,5 +141,6 @@ Each game implements specific algorithms for:
    ```bash
    git clone https://github.com/1406khoa/Humanbenchmark-Clone.git
    cd Humanbenchmark-Clone
-  
+2. npm install
+3. npm run dev to run the project.
 
