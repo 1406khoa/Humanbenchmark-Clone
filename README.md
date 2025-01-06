@@ -70,16 +70,19 @@ Inspired by famous chimpanzee memory tests, challenges you to remember the posit
 ## 🚀 Getting Started
 
 1. Clone the repository
-2. Install dependencies:
+   ```bash
+   git clone https://github.com/1406khoa/Humanbenchmark-Clone.git
+   cd Humanbenchmark-Clone
+3. Install dependencies:
    ```bash
    npm install
    ```
-3. Set up environment variables:
+4. Set up environment variables:
    ```env
    VITE_SUPABASE_URL=your_supabase_url
    VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
    ```
-4. Start the development server:
+5. Start the development server:
    ```bash
    npm run dev
    ```
@@ -135,12 +138,7 @@ Each game implements specific algorithms for:
 - Offline support
 - Accessibility improvements
 
-## 🚀 Getting Started
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/1406khoa/Humanbenchmark-Clone.git
-   cd Humanbenchmark-Clone
-2. npm install
-3. npm run dev to run the project.
+
+
 
