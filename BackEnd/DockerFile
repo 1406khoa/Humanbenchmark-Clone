@@ -1,19 +1,20 @@
 # Sử dụng Node.js phiên bản 18 trên Alpine
 FROM node:18-alpine
 
+# Thiết lập thư mục làm việc bên trong container
+WORKDIR /app
 
-# Sao chép file package.json và package-lock.json để cài đặt dependencies
-COPY package.json package-lock.json ./
+# Copy các file package.json và package-lock.json từ thư mục BackEnd
+COPY BackEnd/package.json BackEnd/package-lock.json ./
 
-# Cài đặt các package cần thiết (loại trừ dev dependencies)
+# Cài đặt dependencies (loại trừ dev dependencies)
 RUN npm install --omit=dev
 
-# Sao chép toàn bộ mã nguồn vào container
-COPY . .
+# Copy toàn bộ mã nguồn từ thư mục BackEnd vào container
+COPY BackEnd/ .
 
-# Mở cổng 3000 (lưu ý: Railway sẽ override biến PORT nếu cần)
+# Mở cổng 3000 (Railway sẽ override biến PORT nếu cần)
 EXPOSE 3000
 
-# Lệnh khởi động ứng dụng Node.js
-WORKDIR /app
-CMD ["node", "/BackEnd/server.js"]
+# Lệnh khởi động ứng dụng (đảm bảo tên file đúng)
+CMD ["node", "server.js"]
