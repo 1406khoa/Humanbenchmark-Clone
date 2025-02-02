@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { GameState, GridSquare } from '../types/visualMemory';
 import { createGrid, getGridSize, getNumHighlightedSquares } from '../utils/gridUtils';
-import { playSound } from '../utils/sounds';
 
 const MAX_MISTAKES = 3;
 const INITIAL_LIVES = 3;

@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { GameState, GameStats } from '../types/wordMemory';
 import { getRandomWord } from '../utils/wordUtils';
-import { playSound } from '../utils/sounds';
 
 const INITIAL_LIVES = 3;
 

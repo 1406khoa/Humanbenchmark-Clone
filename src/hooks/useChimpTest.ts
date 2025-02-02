@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { GameState, ChimpStats, GridCell } from '../types/chimpTest';
-import { playSound } from '../utils/sounds';
 
 const GRID_SIZE = 5;
 const INITIAL_LIVES = 3;
