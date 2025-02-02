@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # Thiết lập thư mục làm việc trong container
-WORKDIR /app/BackEnd
+WORKDIR /BackEnd
 
 # Sao chép file package.json và package-lock.json để cài đặt dependencies
 COPY package.json package-lock.json ./
