@@ -1,8 +1,6 @@
 # Sử dụng Node.js phiên bản 18 trên Alpine
 FROM node:18-alpine
 
-# Thiết lập thư mục làm việc trong container
-WORKDIR /BackEnd
 
 # Sao chép file package.json và package-lock.json để cài đặt dependencies
 COPY package.json package-lock.json ./
@@ -17,4 +15,5 @@ COPY . .
 EXPOSE 3000
 
 # Lệnh khởi động ứng dụng Node.js
-CMD ["node", "server.js"]
+WORKDIR /app
+CMD ["node", "/BackEnd/server.js"]
