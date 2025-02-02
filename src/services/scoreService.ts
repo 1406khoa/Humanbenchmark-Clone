@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { authorizedApi } from '../lib/api';
 
 export interface Score {
   id: string;
@@ -8,51 +8,20 @@ export interface Score {
   created_at: string;
 }
 
-export async function saveScore(gameId: string, score: number): Promise<Score> {
-  const { data: user } = await supabase.auth.getUser();
-  if (!user.user) {
-    throw new Error('Not authenticated');
-  }
+// Lưu Điểm
+export const saveScore = async (gameId: string, score: number): Promise<void> => {
+  const res = await authorizedApi().post('/scores/save', { game_id: gameId, score });
+  return res.data;
+};
 
-  const { data, error } = await supabase
-    .from('scores')
-    .insert([{ 
-      game_id: gameId, 
-      score,
-      user_id: user.user.id 
-    }])
-    .select()
-    .single();
+// Lấy Điểm Của Người Dùng
+export const getUserScores = async (): Promise<Score[]> => {
+  const res = await authorizedApi().get('/scores/user');
+  return res.data.scores;
+};
 
-  if (error) {
-    console.error('Error saving score:', error);
-    throw error;
-  }
-
-  return data;
-}
-
-export async function getUserScores(): Promise<Score[]> {
-  const { data: user } = await supabase.auth.getUser();
-  if (!user.user) return [];
-
-  const { data, error } = await supabase
-    .from('scores')
-    .select('*')
-    .eq('user_id', user.user.id)
-    .order('created_at', { ascending: false });
-
-  if (error) throw error;
-  return data || [];
-}
-
-export async function getGameScores(gameId: string): Promise<Score[]> {
-  const { data, error } = await supabase
-    .from('scores')
-    .select('*')
-    .eq('game_id', gameId)
-    .order('score', { ascending: false });
-
-  if (error) throw error;
-  return data || [];
-}
+// Lấy Bảng Xếp Hạng Của Một Trò Chơi
+export const getGameScores = async (gameId: string): Promise<Score[]> => {
+  const res = await authorizedApi().get(`/scores/game/${gameId}`);
+  return res.data.scores;
+};

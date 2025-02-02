@@ -20,7 +20,7 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
 
   const handleSave = async () => {
     if (!user) {
-      showNotification('Please sign in to save your score', 'info');
+      showNotification('Bạn cần đăng nhập để lưu điểm!', 'info');
       navigate('/auth');
       return;
     }
@@ -29,14 +29,14 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
       setSaving(true);
       await saveScore(gameId, score);
       setSaved(true);
-      showNotification('Score saved successfully!', 'success');
+      showNotification('Điểm số đã được lưu thành công!', 'success');
     } catch (error: any) {
-      console.error('Failed to save score:', error);
-      if (error.message.includes('JWT')) {
-        showNotification('Session expired. Please sign in again.', 'error');
+      console.error('❌ Lỗi khi lưu điểm:', error);
+      if (error.response?.status === 401) {
+        showNotification('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.', 'error');
         navigate('/auth');
       } else {
-        showNotification('Failed to save score. Please try again.', 'error');
+        showNotification('Không thể lưu điểm. Vui lòng thử lại.', 'error');
       }
     } finally {
       setSaving(false);
@@ -45,11 +45,8 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
 
   if (saved) {
     return (
-      <button 
-        disabled 
-        className={`py-3 bg-green-600 text-white rounded-xl ${className}`}
-      >
-        Score Saved ✓
+      <button disabled className={`py-3 bg-green-600 text-white rounded-xl ${className}`}>
+        Điểm đã lưu ✓
       </button>
     );
   }
@@ -61,7 +58,7 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
       className={`py-3 flex items-center justify-center space-x-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
     >
       <Save className="w-5 h-5" />
-      <span>{saving ? 'Saving...' : 'Save Score'}</span>
+      <span>{saving ? 'Đang lưu...' : 'Lưu điểm'}</span>
     </button>
   );
 }

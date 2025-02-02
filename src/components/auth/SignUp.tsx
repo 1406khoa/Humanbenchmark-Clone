@@ -18,28 +18,17 @@ export function SignUp() {
     e.preventDefault();
     
     if (password !== confirmPassword) {
-      showNotification('Passwords do not match', 'error');
-      return;
-    }
-
-    if (password.length < 6) {
-      showNotification('Password must be at least 6 characters long', 'error');
+      showNotification('Invalid password', 'error');
       return;
     }
 
     try {
       setLoading(true);
       await signUp(email, password);
-      showNotification('Account created successfully! Please sign in.', 'success');
-      // Redirect to login page
+      showNotification('Sign up successfully! Please Sign in to save score.', 'success');
       navigate('/auth?signup=false');
-    } catch (err: any) {
-      if (err.message.includes('already registered')) {
-        showNotification('This email is already registered. Please sign in instead.', 'error');
-        navigate('/auth?signup=false');
-      } else {
-        showNotification('Failed to create account. Please try again.', 'error');
-      }
+    } catch (err) {
+      showNotification('Email already used or something wrong.', 'error');
     } finally {
       setLoading(false);
     }
@@ -47,41 +36,14 @@ export function SignUp() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <FormInput
-        icon={<Mail className="w-5 h-5 text-gray-400" />}
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      
-      <FormInput
-        icon={<Lock className="w-5 h-5 text-gray-400" />}
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-        minLength={6}
-      />
+      <FormInput icon={<Mail className="w-5 h-5 text-gray-400" />} type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-      <FormInput
-        icon={<Lock className="w-5 h-5 text-gray-400" />}
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        required
-        minLength={6}
-      />
+      <FormInput icon={<Lock className="w-5 h-5 text-gray-400" />} type="password" placeholder="Mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {loading ? 'Creating Account...' : 'Create Account'}
+      <FormInput icon={<Lock className="w-5 h-5 text-gray-400" />} type="password" placeholder="Nhập lại mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+
+      <button type="submit" disabled={loading} className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        {loading ? 'Creating account...' : 'Create account'}
       </button>
     </form>
   );

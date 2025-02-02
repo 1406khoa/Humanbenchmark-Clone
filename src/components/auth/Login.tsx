@@ -18,10 +18,10 @@ export function Login() {
     try {
       setLoading(true);
       await signIn(email, password);
-      showNotification('Successfully signed in!', 'success');
+      showNotification('Sign in successfully!', 'success');
       navigate('/dashboard');
     } catch (err) {
-      showNotification('Failed to sign in. Please check your credentials.', 'error');
+      showNotification('Please check your email or password', 'error');
     } finally {
       setLoading(false);
     }
@@ -37,23 +37,22 @@ export function Login() {
         onChange={(e) => setEmail(e.target.value)}
         required
       />
-      
+
       <FormInput
         icon={<Lock className="w-5 h-5 text-gray-400" />}
         type="password"
-        placeholder="Password"
+        placeholder="Mật khẩu"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        minLength={6}
       />
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 px-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
       >
-        {loading ? 'Signing in...' : 'Sign In'}
+        {loading ? 'Signing in...' : 'Sign in'}
       </button>
     </form>
   );
