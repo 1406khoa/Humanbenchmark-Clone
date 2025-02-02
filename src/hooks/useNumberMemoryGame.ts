@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { GameState, GameResult } from '../types/numberMemory';
 import { generateNumber, compareNumbers, getDisplayDuration } from '../utils/numberUtils';
-import { playSound } from '../utils/sounds';
 
 export function useNumberMemoryGame() {
   const [level, setLevel] = useState(1);
