@@ -3,11 +3,8 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 // In ra giá trị các biến môi trường để debug
-console.log("process.env.MYSQL_HOST =", process.env.MYSQL_HOST);
-console.log("process.env.MYSQL_PORT =", process.env.MYSQL_PORT);
-console.log("process.env.MYSQL_USER =", process.env.MYSQL_USER);
-console.log("process.env.MYSQL_PASSWORD =", process.env.MYSQL_PASSWORD);
-console.log("process.env.MYSQL_DATABASE =", process.env.MYSQL_DATABASE);
+console.log("MYSQL_HOST =", process.env.MYSQL_HOST);
+console.log("MYSQL_PORT =", process.env.MYSQL_PORT);
 
 const db = mysql.createConnection({
   host: process.env.MYSQL_HOST,
