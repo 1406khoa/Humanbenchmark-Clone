@@ -20,7 +20,7 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
 
   const handleSave = async () => {
     if (!user) {
-      showNotification('Bạn cần đăng nhập để lưu điểm!', 'info');
+      showNotification('You need to login first!', 'info');
       navigate('/auth');
       return;
     }
@@ -29,14 +29,14 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
       setSaving(true);
       await saveScore(gameId, score);
       setSaved(true);
-      showNotification('Điểm số đã được lưu thành công!', 'success');
+      showNotification('Saved!', 'success');
     } catch (error: any) {
-      console.error('❌ Lỗi khi lưu điểm:', error);
+      console.error('❌ Error:', error);
       if (error.response?.status === 401) {
-        showNotification('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.', 'error');
+        showNotification('Login session has expired. Please log in again.', 'error');
         navigate('/auth');
       } else {
-        showNotification('Không thể lưu điểm. Vui lòng thử lại.', 'error');
+        showNotification('Points cannot be saved. Please try again.', 'error');
       }
     } finally {
       setSaving(false);
@@ -46,7 +46,7 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
   if (saved) {
     return (
       <button disabled className={`py-3 bg-green-600 text-white rounded-xl ${className}`}>
-        Điểm đã lưu ✓
+        Saved ✓
       </button>
     );
   }
@@ -58,7 +58,7 @@ export function SaveScoreButton({ gameId, score, className = '' }: SaveScoreButt
       className={`py-3 flex items-center justify-center space-x-2 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
     >
       <Save className="w-5 h-5" />
-      <span>{saving ? 'Đang lưu...' : 'Lưu điểm'}</span>
+      <span>{saving ? 'Saving...' : 'Save'}</span>
     </button>
   );
 }
