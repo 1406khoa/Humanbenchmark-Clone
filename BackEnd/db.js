@@ -3,9 +3,13 @@ require('dotenv').config();
 const { URL } = require('url');
 
 const dbUrl = process.env.MYSQL_URL;
+if (!dbUrl) {
+  throw new Error("❌ Chưa có biến môi trường MYSQL_URL!");
+}
 
+// Tách DSN
 const { hostname, username, password, pathname, port } = new URL(dbUrl);
-const database = pathname.slice(1);
+const database = pathname.slice(1); // bỏ dấu "/"
 
 const pool = mysql.createPool({
   host: hostname,
@@ -14,12 +18,16 @@ const pool = mysql.createPool({
   database,
   port
 });
-db.connect((err) => {
-  if (err) {
+
+// Kiểm tra kết nối (test)
+(async () => {
+  try {
+    const conn = await pool.getConnection(); // Kết nối thử
+    console.log("✅ Kết nối MySQL thành công!");
+    conn.release(); // Trả connection về pool
+  } catch (err) {
     console.error("❌ Không thể kết nối MySQL:", err);
-    return;
   }
-  console.log("✅ Kết nối MySQL thành công!");
-});
+})();
 
 module.exports = pool;
