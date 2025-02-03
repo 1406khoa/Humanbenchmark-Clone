@@ -1,36 +1,28 @@
-const mysql = require('mysql2/promise');
+// db.js
+const mysql = require('mysql2');
 require('dotenv').config();
-const { URL } = require('url');
 
-// Xây dựng DSN từ biến môi trường
-const dbUrl = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQL_ROOT_PASSWORD}@${process.env.RAILWAY_TCP_PROXY_DOMAIN}:${process.env.RAILWAY_TCP_PROXY_PORT}/${process.env.MYSQL_DATABASE}`;
+// In ra giá trị các biến môi trường để debug
+console.log("process.env.MYSQL_HOST =", process.env.MYSQL_HOST);
+console.log("process.env.MYSQL_PORT =", process.env.MYSQL_PORT);
+console.log("process.env.MYSQL_USER =", process.env.MYSQL_USER);
+console.log("process.env.MYSQL_PASSWORD =", process.env.MYSQL_PASSWORD);
+console.log("process.env.MYSQL_DATABASE =", process.env.MYSQL_DATABASE);
 
-// Kiểm tra xem dbUrl có rỗng không
-if (!dbUrl) {
-  throw new Error("❌ Chưa có chuỗi DSN MySQL (dbUrl)!");
-}
-
-// Tách DSN
-const { hostname, username, password, pathname, port } = new URL(dbUrl);
-const database = pathname.slice(1); // Bỏ dấu "/"
-
-const pool = mysql.createPool({
-  host: hostname,
-  user: username,
-  password,
-  database,
-  port
+const db = mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  port: process.env.MYSQL_PORT,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 });
 
-// Thử kết nối khi khởi chạy
-(async () => {
-  try {
-    const conn = await pool.getConnection();
-    console.log("✅ Kết nối MySQL thành công!");
-    conn.release();
-  } catch (err) {
+db.connect((err) => {
+  if (err) {
     console.error("❌ Không thể kết nối MySQL:", err);
+  } else {
+    console.log("✅ Kết nối MySQL thành công!");
   }
-})();
+});
 
-module.exports = pool;
+module.exports = db;
