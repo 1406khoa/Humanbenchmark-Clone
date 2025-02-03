@@ -82,7 +82,6 @@ export function useVisualMemoryGame() {
     const newGrid = grid.map(row => row.map(square => ({ ...square })));
     
     if (highlightedSquares.has(squareId)) {
-      playSound.correct();
       newGrid[row][col].isClicked = true;
       setGrid(newGrid);
       
@@ -105,7 +104,6 @@ export function useVisualMemoryGame() {
         }, NOTIFICATION_DURATION);
       }
     } else if (!newGrid[row][col].isWrongClick && !isResetting) {
-      playSound.wrong();
       newGrid[row][col].isWrongClick = true;
       setGrid(newGrid);
       

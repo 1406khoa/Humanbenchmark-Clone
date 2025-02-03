@@ -35,11 +35,9 @@ export function useNumberMemoryGame() {
     const incorrectIndices = compareNumbers(input, currentNumber);
     
     if (incorrectIndices.length === 0) {
-      playSound.correct();
       setMaxLevel(Math.max(maxLevel, level + 1));
       setGameState('success');
     } else {
-      playSound.wrong();
       setResult({
         input,
         correct: currentNumber,

@@ -12,8 +12,19 @@ router.post("/register", (req, res) => {
 
   const query = "INSERT INTO users (id, email, password_hash) VALUES (UUID(), ?, ?)";
   db.query(query, [email, hashedPassword], (err, result) => {
-    if (err) return res.status(500).json({ success: false, message: "Lỗi khi đăng ký" });
-    res.json({ success: true, message: "Đăng ký thành công!" });
+    if (err) {
+      console.log("Đăng ký lỗi SQL:", err);
+      return res.status(500).json({
+        success: false,
+        message: err.sqlMessage || "Lỗi khi đăng ký",
+      });
+    }
+
+    // Trả về JSON khi thành công
+    return res.status(200).json({
+      success: true,
+      message: "Đăng ký thành công!",
+    });
   });
 });
 

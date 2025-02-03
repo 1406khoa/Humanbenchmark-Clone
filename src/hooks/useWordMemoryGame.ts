@@ -32,7 +32,6 @@ export function useWordMemoryGame() {
     const correct = answeredNew === isNew;
     
     if (correct) {
-      playSound.correct();
       const nextWord = getRandomWord();
       setStats(prev => {
         const newSeen = new Set(prev.seen);
@@ -50,7 +49,6 @@ export function useWordMemoryGame() {
       });
       setCurrentWord(nextWord);
     } else {
-      playSound.wrong();
       const newLives = stats.lives - 1;
       
       if (newLives <= 0) {

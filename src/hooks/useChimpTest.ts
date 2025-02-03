@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react'; 
 import { GameState, ChimpStats, GridCell } from '../types/chimpTest';
 
 const GRID_SIZE = 5;
@@ -65,25 +65,26 @@ export function useChimpTest() {
 
   const handleCellClick = useCallback((row: number, col: number) => {
     if (gameState !== 'showing' && gameState !== 'playing') return;
-    if (isProcessing) return; // Prevent clicks while processing
+    if (isProcessing) return; 
 
     const cell = grid[row][col];
-    
     if (cell.isClicked || cell.number === 0) return;
 
     if (cell.number === nextNumber) {
-      playSound.correct();
-      
+      // XÓA: playSound.correct();
+
       if (gameState === 'showing') {
-        setGrid(prev => prev.map(row =>
-          row.map(cell => ({
-            ...cell,
+        // Ẩn tất cả số
+        setGrid(prev => prev.map(r =>
+          r.map(c => ({
+            ...c,
             isRevealed: false
           }))
         ));
         setGameState('playing');
       }
 
+      // Đánh dấu ô đã click đúng
       setGrid(prev => {
         const newGrid = [...prev];
         newGrid[row][col] = {
@@ -97,6 +98,7 @@ export function useChimpTest() {
       const newNextNumber = nextNumber + 1;
       setNextNumber(newNextNumber);
 
+      // Nếu đã click đủ toàn bộ số
       if (newNextNumber > stats.numbersShown) {
         setIsProcessing(true);
         const newNumbersShown = stats.numbersShown + 1;
@@ -110,7 +112,7 @@ export function useChimpTest() {
         }));
         
         setTimeout(() => {
-          const newGrid = createGrid(stats.numbersShown + 1);
+          const newGrid = createGrid(newNumbersShown);
           setGrid(newGrid);
           setNextNumber(1);
           setGameState('showing');
@@ -118,9 +120,9 @@ export function useChimpTest() {
         }, 1000);
       }
     } else {
-      playSound.wrong();
+      // XÓA: playSound.wrong();
+
       setIsProcessing(true);
-      
       setGrid(prev => {
         const newGrid = [...prev];
         newGrid[row][col] = {
