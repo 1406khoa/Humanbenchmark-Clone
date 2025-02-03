@@ -27,7 +27,7 @@ A cognitive testing application built with React that helps users measure and im
 - **Routing**: React Router
 - **Charts**: Recharts
 - **Icons**: Lucide React
-- **Backend**: Supabase
+- **Backend**: Mysql, NodeJs
 - **Build Tool**: Vite
 
 ## 🏗️ Project Structure
