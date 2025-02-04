@@ -29,6 +29,7 @@ A cognitive testing application built with React that helps users measure and im
 - **Icons**: Lucide React
 - **Backend**: Mysql, NodeJs
 - **Build Tool**: Vite
+- **Deployment**: Vercel (Frontend), Railway (Backend & Database)
 
 ## 🏗️ Project Structure
 
@@ -77,29 +78,29 @@ Inspired by famous chimpanzee memory tests, challenges you to remember the posit
    ```bash
    npm install
    ```
-4. Set up environment variables:
-   ```env
-   VITE_SUPABASE_URL=your_supabase_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   ```
-5. Start the development server:
+4. Start the development server:
    ```bash
    npm run dev
    ```
 
 ## 📊 Database Schema
 
+### Users Table
+- `id`: UUID (Primary Key)
+- `email`: VARCHAR(255) (Unique, required)
+- `password_hash`: VARCHAR(255) (Hashed password)
+- `created_at`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ### Scores Table
 - `id`: UUID (Primary Key)
-- `user_id`: UUID (Foreign Key to auth.users)
-- `game_id`: Text
-- `score`: Integer
-- `created_at`: Timestamp with timezone
+- `user_id`: (UUID (Foreign Key to users.id))
+- `game_id`: VARCHAR(255)
+- `score`: INTEGER
+- `create_at`: TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 ## 🔐 Security Features
 
-- Row Level Security (RLS) enabled
-- Secure authentication flow
+- JWT authentication for secure login
+- Password hashing with bcrypt
 - Protected API endpoints
 - User data isolation
 
@@ -128,6 +129,11 @@ Each game implements specific algorithms for:
 - Difficulty progression
 - Performance metrics
 - Statistical analysis
+## 🌍 Deployment
+- Frontend: Deployed on Vercel, with automatic updates from GitHub.
+- Backend: Hosted on Railway, connected to MySQL for storing scores and user data.
+- Database: MySQL database deployed on Railway with secured access.
+- Environment Management: Configured .env files on Vercel and Railway to store sensitive credentials securely.
 
 ## 📈 Future Improvements
 
