@@ -34,18 +34,27 @@ A cognitive testing application built with React that helps users measure and im
 ## 🏗️ Project Structure
 
 ```
+BackEnd/
+├── routes/                 # API route definitions
+│   ├── auth.js             # Authentication routes
+│   └── score.js            # Score management routes
+├── .env                    # Environment variables
+├── db.js                   # Database connection setup
+└── server.js               # Main server file
 src/
-├── components/        # Reusable UI components
-│   ├── auth/         # Authentication components
-│   ├── charts/       # Data visualization components
-│   └── games/        # Game-specific components
-├── contexts/         # React context providers
-├── hooks/            # Custom React hooks
-├── pages/            # Route components
-├── services/         # API and external service integrations
-├── styles/          # Global styles and CSS modules
-├── types/           # TypeScript type definitions
-└── utils/           # Helper functions and utilities
+├── components/             # Reusable UI components
+│   ├── auth/               # Authentication components
+│   ├── charts/             # Data visualization components
+│   └── games/              # Game-specific components
+├── contexts/               # React context providers
+├── data/                   # Static data and constants
+├── hooks/                  # Custom React hooks
+├── lib/                    # External libraries and utilities
+├── pages/                  # Route components
+├── services/               # API and external service integrations
+├── styles/                 # Global styles and CSS modules
+├── types/                  # TypeScript type definitions
+└── utils/                  # Helper functions and utilities
 ```
 
 ## 🎯 Games Description
